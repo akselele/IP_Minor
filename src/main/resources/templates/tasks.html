@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+    <link th:insert="header.html :: link">
+    <script th:insert="header.html :: script"></script>
+</head>
+<body>
+<header th:insert="header.html :: div"></header>
+<h1>Tasks: </h1>
+<div th:if="${#lists.isEmpty(tasks)}">
+    <a>No tasks left to do</a>
+</div>
+<table th:if="${not #lists.isEmpty(tasks)}">
+    <tr th:each="task, iStat : ${tasks}">
+        <td><a th:href="@{/tasks/{id}(id=${iStat.count})}" th:text="'Task ' + ${iStat.count}"></a></td>
+        <td th:text="' due to ' + ${#temporals.monthName(task.taskDue) + ' ' + #temporals.day(task.taskDue) + ' at ' + #temporals.format(task.taskDue, 'HH:mm')}">
+        <td><a th:href="@{/tasks/edit/{id}(id=${iStat.count})}" th:text="'Edit task'"></a></td>
+    </tr>
+</table>
+</body>
+</html>

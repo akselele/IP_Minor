@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:insert="header.html :: link">
+    <script th:insert="header.html :: script"></script>
+    <title>Task detail</title>
+</head>
+<body>
+<header th:insert="header.html :: div"></header>
+<h1>Task detail: </h1>
+<p th:if="${task == null}">Task not found</p>
+<table th:if="${task !=null}">
+    <tr>
+        <td>Title:</td>
+        <td th:text="${task.taskName}">
+    </tr>
+    <tr>
+        <td>Description:</td>
+        <td th:text="${task.taskDescription}">
+    </tr>
+    <tr>
+        <td>Due date:</td>
+        <td th:text="${#temporals.format(task.taskDue, 'dd-MM-yyyy HH:mm')}">
+    </tr>
+    <tr>
+        <td><a th:href="@{/tasks/} + ${id} + '/sub/create'" th:text="'Create a subtask for this task'"></a></td>
+    </tr>
+</table>
+
+<div th:if="${not #lists.isEmpty(tasks)}">
+    <h1 th:text="'Subtask(s) for: ' + ${task.taskName}"></h1>
+    <table>
+        <tr th:each="task2, iStat : ${tasks}">
+            <td th:text="${task2}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

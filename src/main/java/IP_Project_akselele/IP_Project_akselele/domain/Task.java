@@ -1,23 +1,19 @@
 package IP_Project_akselele.IP_Project_akselele.domain;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import javax.persistence.*;
-
-
 @Entity
-public class Task  {
+public class Task {
     @Id
     @GeneratedValue
     private long id;
@@ -31,8 +27,8 @@ public class Task  {
     @NotNull(message = "Description of Task cannot be empty")
     private String taskDescription;
 
-    @NotEmpty(message = "Date and time of Task cannot be empty")
-    @NotNull(message = "Date and time of Task cannot be empty")
+
+    @FutureOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime taskDue;
     private static final String DATE_FORMATTER = "dd-MM-yyyy HH:mm";
@@ -40,21 +36,21 @@ public class Task  {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Subtask> subtasks;
 
-    public Task(String taskName, String taskDescription, String taskDue){
+    public Task(String taskName, String taskDescription, String taskDue) {
         subtasks = new ArrayList<>();
         setTaskName(taskName);
         setTaskDescription(taskDescription);
         setTaskDue(taskDue);
     }
 
-    public Task(String taskName, String taskDescription, LocalDateTime taskDue){
+    public Task(String taskName, String taskDescription, LocalDateTime taskDue) {
         subtasks = new ArrayList<>();
         setTaskName(taskName);
         setTaskDescription(taskDescription);
         setTaskDue(taskDue);
     }
 
-    public Task(){
+    public Task() {
         subtasks = new ArrayList<>();
     }
 
@@ -93,7 +89,7 @@ public class Task  {
         return taskName;
     }
 
-    public String toString(){
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
         return taskName + " - " + taskDescription + " due to " + taskDue.format(formatter);
     }
@@ -106,12 +102,7 @@ public class Task  {
         this.id = id;
     }
 
-    public void addSubTask(Subtask subTask){
-        long id = 0;
-        if(this.subtasks.size() > 0){
-            id = this.subtasks.get(subtasks.size()-1).getId()+1;
-        }
-        subTask.setId(id);
+    public void addSubTask(Subtask subTask) {
         this.subtasks.add(subTask);
     }
 }

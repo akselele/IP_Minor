@@ -3,22 +3,23 @@ package IP_Project_akselele.IP_Project_akselele.dto;
 import org.apache.tomcat.jni.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TaskDTO {
     private long id;
 
-    @NotNull(message = "Name of Task cannot be empty")
+
     @NotEmpty(message = "Name of Task cannot be empty")
     private String taskName;
-    @NotNull(message = "Description of Task cannot be empty")
+
     @NotEmpty(message = "Description of Task cannot be empty")
     private String taskDescription;
-    @NotEmpty(message = "Date and time of Task cannot be empty")
-    @NotNull(message = "Date and time of Task cannot be empty")
+
+
+    @NotNull(message = "Due date of Task cannot be empty")
+    @Future(message = "Description must be in the future")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime taskDue;
     private static final String DATE_FORMATTER = "dd-MM-yyyy HH:mm";

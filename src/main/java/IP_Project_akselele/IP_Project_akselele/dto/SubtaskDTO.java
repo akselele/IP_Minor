@@ -1,24 +1,17 @@
-package IP_Project_akselele.IP_Project_akselele.domain;
+package IP_Project_akselele.IP_Project_akselele.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import IP_Project_akselele.IP_Project_akselele.domain.Task;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-@Entity
-public class SubtaskDTO extends Task {
+public class SubtaskDTO{
 
-    @Id
-    @GeneratedValue
-    private long id;
-    @NotNull(message = "Name of task or description cannot be empty")
-    @NotEmpty(message = "Name of task cannot or description cannot be empty")
-    private String taskName, taskDescription;
+    @NotEmpty(message = "Name of task cannot be empty")
+    private String taskName;
+    @NotEmpty(message = "Description of task cannot be empty")
+    private String taskDescription;
 
-    public SubtaskDTO(Task task,String taskName, String taskDescription){
+
+    public SubtaskDTO(Task task, String taskName, String taskDescription){
         setTaskName(taskName);
         setTaskDescription(taskDescription);
     }

@@ -1,11 +1,10 @@
 package IP_Project_akselele.IP_Project_akselele.service;
 
 import IP_Project_akselele.IP_Project_akselele.domain.Subtask;
-import IP_Project_akselele.IP_Project_akselele.domain.SubtaskDTO;
+import IP_Project_akselele.IP_Project_akselele.dto.SubtaskDTO;
 import IP_Project_akselele.IP_Project_akselele.domain.Task;
 import IP_Project_akselele.IP_Project_akselele.dto.TaskDTO;
 import IP_Project_akselele.IP_Project_akselele.repository.TaskRepository;
-import IP_Project_akselele.IP_Project_akselele.repository.TaskRepositoryMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +36,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public TaskDTO addTaskAPI(TaskDTO taskDTO) {
+        addTask(taskDTO);
+        return taskDTO;
+    }
+
+    @Override
     public Task getTask(long id) {
         return repository.getOne(id);
     }
@@ -54,7 +59,6 @@ public class TaskServiceImpl implements TaskService {
         Subtask subtask = new Subtask();
         subtask.setTaskName(subtaskDTO.getTaskName());
         subtask.setTaskDescription(subtaskDTO.getTaskDescription());
-        subtask.setTaskDue(subtaskDTO.getTaskDue());
         task.addSubTask(subtask);
         repository.save(task);
         repository.flush();

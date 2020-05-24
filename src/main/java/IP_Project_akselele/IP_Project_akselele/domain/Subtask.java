@@ -1,7 +1,11 @@
 package IP_Project_akselele.IP_Project_akselele.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -9,14 +13,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-public class Subtask extends Task {
+public class Subtask {
 
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
     @Id
-    @GeneratedValue
-    private long id;
-    @NotNull(message = "Name of task or description cannot be empty")
+    private String id;
     @NotEmpty(message = "Name of task cannot or description cannot be empty")
-    private String taskName, taskDescription;
+    private String taskName;
+    @NotEmpty(message = "Description of task cannot be empty")
+    private String taskDescription;
 
     public Subtask(Task task,String taskName, String taskDescription){
         setTaskName(taskName);
@@ -45,6 +51,14 @@ public class Subtask extends Task {
 
     public String toString(){
         return taskName + " - " + taskDescription;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

@@ -1,7 +1,7 @@
 package IP_Project_akselele.IP_Project_akselele;
 
 import IP_Project_akselele.IP_Project_akselele.domain.Subtask;
-import IP_Project_akselele.IP_Project_akselele.domain.SubtaskDTO;
+import IP_Project_akselele.IP_Project_akselele.dto.SubtaskDTO;
 import IP_Project_akselele.IP_Project_akselele.domain.Task;
 import IP_Project_akselele.IP_Project_akselele.dto.TaskDTO;
 import IP_Project_akselele.IP_Project_akselele.service.TaskService;

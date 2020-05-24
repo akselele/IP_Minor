@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,8 +11,22 @@
 </head>
 <body>
 <div class="topnav">
-    <a href="/tasks">Tasks</a>
-    <a href="/tasks/new">New Task</a>
+    <a href="/" th:text="#{home}"></a>
+    <a href="/tasks" th:text="#{allTasks}"></a>
+    <a href="/tasks/new" th:text="#{addTask}"></a>
+</div>
+<div style="text-align: right;">
+
+        <a href="#" class="lan" value="en" th:text="#{lang.eng}"></a>
+        <a href="#" class="lan" value="nl" th:text="#{lang.nl}"></a>
 </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".lan").click(function(){
+            window.location.replace(window.location.pathname + '?lang=' + $(this).attr("value"));
+        });
+    });
+</script>
 </html>

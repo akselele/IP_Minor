@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <link th:insert="header.html :: link">
     <script th:insert="header.html :: script"></script>
-    <title>New task</title>
+    <title th:text="#{addTask}"></title>
 </head>
 <body>
 <header th:insert="header.html :: div"></header>
-<h1>New task</h1>
-<form action="/tasks/new" th:object="${task}" method="post">
-    <p><label for="taskName">Title:</label><input type="text" id="title" th:field="*{taskName}"/></p>
+<h1 th:text="#{addTask}"></h1>
+<form th:action="@{/tasks/new}" th:object="${taskDTO}" method="post">
+    <p><label for="taskName"th:text="#{taskName}"></label><input type="text" id="taskName" th:field="*{taskName}"/></p>
     <p th:errors="*{taskName}"></p>
 
-    <p><label for="taskDescription">Description:</label><input type="text" id="description"  th:field="*{taskDescription}"/></p>
+    <p><label for="taskDescription" th:text="#{taskDescription}"></label><input type="text" id="taskDescription"  th:field="*{taskDescription}"/></p>
     <p th:errors="*{taskDescription}"></p>
 
-    <p><label for="taskDue">Due date:</label><input type="datetime-local" th:field="*{taskDue}"/></p>
+    <p><label for="taskDue" th:text="#{taskDue}" ></label><input type="datetime-local" id="taskDue" th:field="*{taskDue}"/></p>
     <p th:errors="*{taskDue}"></p>
-    <p><input type="submit" id="signUp" value="Submit"></p>
+    <p><input type="submit" id="signUp" th:value="#{submit}"></p>
 </form>
 </body>
 </html>

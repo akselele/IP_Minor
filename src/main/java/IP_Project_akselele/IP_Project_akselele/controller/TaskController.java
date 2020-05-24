@@ -1,6 +1,6 @@
 package IP_Project_akselele.IP_Project_akselele.controller;
 
-import IP_Project_akselele.IP_Project_akselele.domain.SubtaskDTO;
+import IP_Project_akselele.IP_Project_akselele.dto.SubtaskDTO;
 import IP_Project_akselele.IP_Project_akselele.dto.TaskDTO;
 import IP_Project_akselele.IP_Project_akselele.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +41,19 @@ public class TaskController {
 
     @GetMapping("/tasks/new")
     public String getAddTask(Model model) {
-        model.addAttribute("task", new TaskDTO());
+        model.addAttribute("taskDTO", new TaskDTO());
         return "newtask";
     }
 
     @PostMapping("/tasks/new")
-    public String addTask(@ModelAttribute("task") @Valid TaskDTO task, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+    public String addTask(@Valid TaskDTO task, BindingResult bindingResult) {
+        if(!bindingResult.hasErrors()){
+            taskService.addTask(task);
+            return "redirect:/tasks";
+            //validation werkt voor een reden niet terwijl het correct is geimplementeerd (?)
+        }else{
             return "newtask";
         }
-        taskService.addTask(task);
-        return "redirect:/tasks";
     }
 
     @GetMapping("tasks/edit/{id:\\d}")
@@ -63,11 +65,14 @@ public class TaskController {
     }
 
     @PostMapping("/tasks/edit/{id:\\d}")
-    public String editTask(@ModelAttribute TaskDTO task, @PathVariable("id") int id) {
-
+    public String editTask(@Valid TaskDTO task, @PathVariable("id") int id, BindingResult br) {
+        if(!br.hasErrors()){
         taskService.editTask(id, task);
 
         return "redirect:/tasks";
+        }else{
+    return "edittask";
+        }
     }
 
     @GetMapping("/tasks/{id:\\d}/sub/create")
@@ -78,11 +83,13 @@ public class TaskController {
     }
 
     @PostMapping("/tasks/{id:\\d}/sub/create")
-    public String addSubtask(@ModelAttribute SubtaskDTO subTask, @PathVariable("id") int id, BindingResult br){
-        if(br.hasErrors()){
+    public String addSubtask(@Valid SubtaskDTO subTask, @PathVariable("id") int id, BindingResult br){
+        if(!br.hasErrors()){
+            taskService.addSubtask(taskService.getTask(id),subTask);
+            return "redirect:/tasks/"+ id;
+        }
+        else{
             return "subtask";
         }
-        taskService.addSubtask(taskService.getTask(id),subTask);
-        return "redirect:/tasks/"+ id;
     }
 }

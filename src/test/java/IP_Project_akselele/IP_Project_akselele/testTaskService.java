@@ -29,7 +29,7 @@ public class testTaskService {
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setTaskName("Task1");
         taskDTO.setTaskDescription("Testing this task");
-        taskDTO.setTaskDue(LocalDateTime.now());
+        taskDTO.setTaskDue(LocalDateTime.now().plusWeeks(2));
         taskService.addTask(taskDTO);
 
         //method to be tested
@@ -49,7 +49,7 @@ public class testTaskService {
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setTaskName("Task1");
         taskDTO.setTaskDescription("Testing this task");
-        taskDTO.setTaskDue(LocalDateTime.now());
+        taskDTO.setTaskDue(LocalDateTime.now().plusWeeks(2));
         taskService.addTask(taskDTO);
         SubtaskDTO subtaskDTO = new SubtaskDTO();
         subtaskDTO.setTaskName("Subtask1 test");
